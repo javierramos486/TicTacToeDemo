@@ -10,7 +10,13 @@ public class GameManager : MonoBehaviour {
     [SerializeField]
     private Text[] buttonList;
 
+    [SerializeField]
+    private GameObject gameOverPanel;
+    [SerializeField]
+    private Text gameOverText;
+
     private string playerSide = "X";
+    private int moveCount = 0;
 
     private void Awake() {
         if (instance == null) instance = this;
@@ -30,6 +36,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public void EndTurn() {
+        moveCount++;
         int[,] winningCombinations = new int[,] {
             {0, 1, 2}, {3, 4, 5}, {6, 7, 8},
             {0, 3, 6}, {1, 4, 7}, {2, 5, 8},
@@ -38,21 +45,40 @@ public class GameManager : MonoBehaviour {
 
         for (int i = 0; i < winningCombinations.GetLength(0); i++) {
             if (buttonList[winningCombinations[i, 0]].text.Equals(playerSide) && buttonList[winningCombinations[i, 1]].text.Equals(playerSide) && buttonList[winningCombinations[i, 2]].text.Equals(playerSide)) {
-                GameOver();
-                break;
+                GameOver(playerSide + " Wins!");
+                return;
             }
         }
 
-        ChangeSides();
+        if (moveCount < 9) ChangeSides();
+        else GameOver("It's a Draw!!");
     }
 
     private void ChangeSides() {
         playerSide = playerSide.Equals("X") ? "O" : "X";
     }
 
-    private void GameOver() {
+    private void SetBoardInteractable(bool toggle) {
         for (int i = 0; i < buttonList.Length; i++) {
-            buttonList[i].GetComponentInParent<Button>().interactable = false;
+            buttonList[i].GetComponentInParent<Button>().interactable = toggle;
+        }
+    }
+
+    private void GameOver(string value) {
+        SetBoardInteractable(false);
+
+        gameOverText.text = value;
+        gameOverPanel.SetActive(true);
+    }
+
+    public void RestartGame() {
+        playerSide = "X";
+        moveCount = 0;
+        gameOverPanel.SetActive(false);
+
+        SetBoardInteractable(true);
+        for (int i = 0; i < buttonList.Length; i++) {
+            buttonList[i].text = "";
         }
     }
 }
