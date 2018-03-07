@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour {
     private GameObject gameOverPanel;
     [SerializeField]
     private Text gameOverText;
+    [SerializeField]
+    private Text playerTurnText;
 
     private string playerSide = "X";
     private int moveCount = 0;
@@ -23,6 +25,10 @@ public class GameManager : MonoBehaviour {
         else if (instance != this) Destroy(gameObject);
 
         SetGameManagerReferenceOnButtons();
+    }
+
+    private void Start() {
+        SetPlayerTurnText();
     }
 
     private void SetGameManagerReferenceOnButtons() {
@@ -56,6 +62,7 @@ public class GameManager : MonoBehaviour {
 
     private void ChangeSides() {
         playerSide = playerSide.Equals("X") ? "O" : "X";
+        SetPlayerTurnText();
     }
 
     private void SetBoardInteractable(bool toggle) {
@@ -75,10 +82,15 @@ public class GameManager : MonoBehaviour {
         playerSide = "X";
         moveCount = 0;
         gameOverPanel.SetActive(false);
+        SetPlayerTurnText();
 
         SetBoardInteractable(true);
         for (int i = 0; i < buttonList.Length; i++) {
             buttonList[i].text = "";
         }
+    }
+
+    private void SetPlayerTurnText() {
+        playerTurnText.text = "Player turn: " + playerSide;
     }
 }
