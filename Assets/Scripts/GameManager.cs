@@ -30,7 +30,6 @@ public class GameManager : MonoBehaviour {
     }
 
     public void EndTurn() {
-        Debug.Log("End turn not implemented.");
         int[,] winningCombinations = new int[,] {
             {0, 1, 2}, {3, 4, 5}, {6, 7, 8},
             {0, 3, 6}, {1, 4, 7}, {2, 5, 8},
@@ -43,6 +42,12 @@ public class GameManager : MonoBehaviour {
                 break;
             }
         }
+
+        ChangeSides();
+    }
+
+    private void ChangeSides() {
+        playerSide = playerSide.Equals("X") ? "O" : "X";
     }
 
     private void GameOver() {
