@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour {
     private static GameManager instance = null;
 
     [SerializeField]
-    private Text[] buttonList;
+    private Button[] buttonList;
 
     [SerializeField]
     private GameObject gameOverPanel;
@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour {
 
     private void SetGameManagerReferenceOnButtons() {
         for (int i = 0; i < buttonList.Length; i++) {
-            buttonList[i].GetComponentInParent<GridSpace>().SetGameManagerReference(instance);
+            buttonList[i].GetComponent<GridSpace>().SetGameManagerReference(instance);
         }
     }
 
@@ -50,7 +50,9 @@ public class GameManager : MonoBehaviour {
         };
 
         for (int i = 0; i < winningCombinations.GetLength(0); i++) {
-            if (buttonList[winningCombinations[i, 0]].text.Equals(playerSide) && buttonList[winningCombinations[i, 1]].text.Equals(playerSide) && buttonList[winningCombinations[i, 2]].text.Equals(playerSide)) {
+            if (buttonList[winningCombinations[i, 0]].GetComponent<GridSpace>().GetPlayerSide().Equals(playerSide) 
+                && buttonList[winningCombinations[i, 1]].GetComponent<GridSpace>().GetPlayerSide().Equals(playerSide) 
+                && buttonList[winningCombinations[i, 2]].GetComponent<GridSpace>().GetPlayerSide().Equals(playerSide)) {
                 GameOver(playerSide + " Wins!");
                 return;
             }
@@ -62,12 +64,13 @@ public class GameManager : MonoBehaviour {
 
     private void ChangeSides() {
         playerSide = playerSide.Equals("X") ? "O" : "X";
+
         SetPlayerTurnText();
     }
 
     private void SetBoardInteractable(bool toggle) {
         for (int i = 0; i < buttonList.Length; i++) {
-            buttonList[i].GetComponentInParent<Button>().interactable = toggle;
+            buttonList[i].GetComponent<Button>().interactable = toggle;
         }
     }
 
@@ -86,7 +89,7 @@ public class GameManager : MonoBehaviour {
 
         SetBoardInteractable(true);
         for (int i = 0; i < buttonList.Length; i++) {
-            buttonList[i].text = "";
+            buttonList[i].GetComponent<GridSpace>().ResetPlayerSide();
         }
     }
 
