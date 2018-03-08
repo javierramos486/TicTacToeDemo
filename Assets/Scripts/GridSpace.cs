@@ -19,6 +19,7 @@ public class GridSpace : MonoBehaviour {
     public void SetSpace() {
         try {
             buttonText.text = gameManager.GetPlayerSide();
+            button.interactable = false;
             gameManager.EndTurn();
         } catch (System.Exception e) {
             Debug.LogException(e);
