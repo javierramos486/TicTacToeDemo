@@ -41,16 +41,18 @@ public class GridSpace : MonoBehaviour {
     }
 
     private void SetButtonImage() {
+        Sprite selectedSprite;
         switch(playerSide) {
             case "X":
-                buttonImage.sprite = xSprite;
+                selectedSprite = xSprite;
                 break;
             case "O":
-                buttonImage.sprite = oSprite;
+                selectedSprite = oSprite;
                 break;
             default:
-                buttonImage.sprite = blankSprite;
+                selectedSprite = blankSprite;
                 break;
         }
+        buttonImage.sprite = selectedSprite;
     }
 }

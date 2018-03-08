@@ -58,8 +58,12 @@ public class GameManager : MonoBehaviour {
             }
         }
 
-        if (moveCount < 9) ChangeSides();
-        else GameOver("It's a Draw!!");
+        if (moveCount >= 9) {
+            GameOver("It's a Draw!!");
+            return;
+        }
+
+        ChangeSides();
     }
 
     private void ChangeSides() {
