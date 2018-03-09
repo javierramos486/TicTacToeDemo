@@ -28,6 +28,10 @@ public class GameManager : MonoBehaviour {
     public static GameManager GetInstance() { return instance; }
 
     private void Start() {
+        // Lame hack to keep the standalone player from ignoring resolution settings
+#if UNITY_STANDALONE_WIN
+        Screen.SetResolution(1024, 768, false);
+#endif
         SetPlayerTurnText();
     }
 

@@ -2238,6 +2238,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1989712020}
   - component: {fileID: 1989712021}
+  - component: {fileID: 1989712022}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -2282,6 +2283,17 @@ MonoBehaviour:
   gameOverPanel: {fileID: 1141583345}
   gameOverText: {fileID: 275866284}
   playerTurnText: {fileID: 1921020876}
+--- !u!114 &1989712022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1989712019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84a4cd0fb6478431e8472c2dc6442a14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2030836820
 Prefab:
   m_ObjectHideFlags: 0
