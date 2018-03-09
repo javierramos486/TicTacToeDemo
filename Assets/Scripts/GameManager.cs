@@ -23,18 +23,12 @@ public class GameManager : MonoBehaviour {
     private void Awake() {
         if (instance == null) instance = this;
         else if (instance != this) Destroy(gameObject);
-
-        SetGameManagerReferenceOnButtons();
     }
+
+    public static GameManager GetInstance() { return instance; }
 
     private void Start() {
         SetPlayerTurnText();
-    }
-
-    private void SetGameManagerReferenceOnButtons() {
-        for (int i = 0; i < buttonList.Length; i++) {
-            buttonList[i].GetComponent<GridSpace>().SetGameManagerReference(instance);
-        }
     }
 
     public string GetPlayerSide() {

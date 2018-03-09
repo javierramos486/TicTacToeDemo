@@ -18,10 +18,6 @@ public class GridSpace : MonoBehaviour {
 
     private string playerSide = "";
 
-    private GameManager gameManager;
-
-    public void SetGameManagerReference(GameManager manager) { gameManager = manager; }
-
     public string GetPlayerSide() { return playerSide; }
 
     public void ResetPlayerSide() { 
@@ -31,10 +27,10 @@ public class GridSpace : MonoBehaviour {
 
     public void SetSpace() {
         try {
-            playerSide = gameManager.GetPlayerSide();
+            playerSide = GameManager.GetInstance().GetPlayerSide();
             button.interactable = false;
             SetButtonImage();
-            gameManager.EndTurn();
+            GameManager.GetInstance().EndTurn();
         } catch (System.Exception e) {
             Debug.LogException(e);
         }
