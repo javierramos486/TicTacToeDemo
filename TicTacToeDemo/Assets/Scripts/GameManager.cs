@@ -78,8 +78,13 @@ public class GameManager : MonoBehaviour {
 
     private void GameOver(string value) {
         SetBoardInteractable(false);
-
         gameOverText.text = value;
+
+        StartCoroutine(ShowGameOverPanel());
+    }
+
+    private IEnumerator ShowGameOverPanel() {
+        yield return new WaitForSeconds(0.3f);
         gameOverPanel.SetActive(true);
     }
 
