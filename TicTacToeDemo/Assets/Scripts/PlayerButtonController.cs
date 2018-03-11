@@ -51,10 +51,10 @@ public class PlayerButtonController : MonoBehaviour
         playerIconPanel.SetActive(true);
 
         if (selectedPlayer.Equals("player_one"))
-            DisplayContent(playerOneSprites);
+            DisplayContent(playerOneSprites, selectedPlayer);
 
         if (selectedPlayer.Equals("player_two"))
-            DisplayContent(playerTwoSprites);
+            DisplayContent(playerTwoSprites, selectedPlayer);
     }
 
     public void ClosePlayerIconMenu() {
@@ -65,21 +65,33 @@ public class PlayerButtonController : MonoBehaviour
         }
     }
 
-    private void DisplayContent(Sprite[] selectedArray) {
-        List<Button> buttonList = new List<Button>();
+    private void DisplayContent(Sprite[] spriteArray, string selectedPlayer) {
+        for (int i = 0; i < spriteArray.Length; i++) {
+            Sprite sprite = spriteArray[i];
 
-        for (int i = 0; i < selectedArray.Length; i++) {
             GameObject buttonObject = Instantiate(scrollViewButtonObject, Vector3.zero, Quaternion.identity, scrollViewContent.transform) as GameObject;
 
             Image[] images = buttonObject.GetComponentsInChildren<Image>();
             foreach(Image image in images) {
                 if (image.name.Equals("Icon Image"))
-                    image.sprite = selectedArray[i];
+                    image.sprite = sprite;
             }
 
             Text text = buttonObject.GetComponentInChildren<Text>();
-            text.text = selectedArray[i].name;
+            text.text = sprite.name;
+
+            Button button = buttonObject.GetComponent<Button>();
+            button.onClick.AddListener(() => IconSelected(sprite, selectedPlayer));
+        }
+    }
+
+    private void IconSelected(Sprite sprite, string selectedPlayer) {
+        try {
+            GameManager.GetInstance().SetPlayerIcon(sprite, selectedPlayer);
+        } catch (System.Exception e) {
+            Debug.LogException(e);
         }
 
+        ClosePlayerIconMenu();
     }
 }

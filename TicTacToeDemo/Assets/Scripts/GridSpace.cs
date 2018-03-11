@@ -20,6 +20,16 @@ public class GridSpace : MonoBehaviour {
 
     public string GetPlayerSide() { return playerSide; }
 
+    public void SetXSprite(Sprite sprite) {
+        xSprite = sprite;
+        SetButtonImage();
+    }
+
+    public void SetOSprite(Sprite sprite) {
+        oSprite = sprite;
+        SetButtonImage();
+    }
+
     public void ResetPlayerSide() { 
         playerSide = "";
         SetButtonImage();

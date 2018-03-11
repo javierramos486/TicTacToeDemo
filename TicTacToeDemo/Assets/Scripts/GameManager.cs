@@ -103,4 +103,14 @@ public class GameManager : MonoBehaviour {
     private void SetPlayerTurnText() {
         playerTurnText.text = "Player turn: " + playerSide;
     }
+
+    public void SetPlayerIcon(Sprite sprite, string selectedPlayer) {
+        for (int i = 0; i < buttonList.Length; i++) {
+            if (selectedPlayer.Equals("player_one"))
+                buttonList[i].GetComponent<GridSpace>().SetXSprite(sprite);
+
+            if (selectedPlayer.Equals("player_two"))
+                buttonList[i].GetComponent<GridSpace>().SetOSprite(sprite);
+        }
+    }
 }
