@@ -21,9 +21,11 @@ public class StreamingAssets : MonoBehaviour {
     private void Awake() {
         if (instance == null) { instance = this; }
         else { Destroy(gameObject); }
+
+        InitializeDownload();
     }
 
-    private void Start() {
+    private void InitializeDownload() {
         DirectoryInfo directoryInfo = new DirectoryInfo(Application.streamingAssetsPath);
         Debug.Log("Streaming Assets Path: " + Application.streamingAssetsPath);
         FileInfo[] playerFiles = directoryInfo.GetFiles("*_player_*.png");
